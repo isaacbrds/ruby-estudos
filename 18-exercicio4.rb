@@ -14,6 +14,6 @@ while true
     numero1, numero2 = numero1.to_i , numero2.to_i
     
     resultado = lambda { |num1, num2, op|  puts eval("#{num1} #{op} #{num2}")}
-    
+    puts resultado
 end
 
