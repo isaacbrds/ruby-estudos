@@ -26,6 +26,11 @@ class DownloadableGame < Game
         super(nome, genero, preco)
         @tamanho_download = tamanho_download
     end
+
+    def info_techs
+        super
+        puts "Tamanho do Download #{}"
+    end
 end
 
 game1 = Game.new("Fifa", "Esporte", 100)
