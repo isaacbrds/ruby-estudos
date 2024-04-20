@@ -43,7 +43,7 @@ class TestCalculadora < Minitest::Test
         end
     end
 
-    def test_multiplicacao
+    def teste_multiplicacao
         assert_equal( 12 , @calculadora.multiplicacao(6,2), "Multiplicação está errada!")
         assert_equal( 3 , @calculadora.multiplicacao(3,1), "Multiplicação está errada!")
         assert_equal( 3 , @calculadora.multiplicacao(3,0), "Multiplicação está errada!")
