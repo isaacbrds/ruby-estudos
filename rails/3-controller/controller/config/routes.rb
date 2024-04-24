@@ -9,6 +9,19 @@ Rails.application.routes.draw do
   get 'simple/hello', defaults: { format: 'json' }
   get 'simple', to: 'simple#hello', defaults: { format: 'json' }
   get 'user/show/:id', to: 'user#show', as: 'user_show', defaults: { format: 'json' }
+
+  get 'tasks', to: 'tasks#index', defaults: { format: 'json' }
+  get 'tasks/:id', to: 'tasks#show', defaults: { format: 'json' }
+
+  resources :posts do 
+    member do
+      get 'comments', to: 'posts#comments'
+      post 'comments', to: 'posts#create_comments'
+    end
+  end
+
+  get 'example', to: 'example#tempo'
+  
   # Defines the root path route ("/")
   # root "posts#index"
 end
