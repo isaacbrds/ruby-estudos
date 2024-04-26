@@ -5,12 +5,21 @@ class ArticlePolicy < ApplicationPolicy
       scope.all
     end
   end
+  
+  def new
+    create?
+  end
+
+  def create?
+    user&.has_role? :writer
+  end
 
   def edit?
-    user&.admin? || user&.id == record.user_id
+    update?  
   end
+
   def update?
-    user&.admin? || user&.id == record.user_id
+    user&.has_role? :editor || user&.id == record.user_id
   end
 
   def destroy?
