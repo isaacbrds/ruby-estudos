@@ -1,0 +1,760 @@
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2024-04-28 16:15:07.736561', '2024-04-28 16:15:07.736565') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateBooks (20240428161437)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "body" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240428161437') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/api/v1/books" for ::1 at 2024-04-28 13:20:11 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::BooksController#index as */*
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  ↳ app/controllers/api/v1/books_controller.rb:8:in `index'
+Completed 200 OK in 55ms (Views: 0.8ms | ActiveRecord: 2.2ms | Allocations: 13308)
+
+
+Started POST "/api/v1/books" for ::1 at 2024-04-28 13:21:44 -0300
+Processing by Api::V1::BooksController#create as */*
+Completed 400 Bad Request in 2ms (ActiveRecord: 0.0ms | Allocations: 158)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: book):
+  
+app/controllers/api/v1/books_controller.rb:49:in `book_params'
+app/controllers/api/v1/books_controller.rb:18:in `create'
+Started POST "/api/v1/books" for ::1 at 2024-04-28 13:23:01 -0300
+Processing by Api::V1::BooksController#create as */*
+  Parameters: {"book"=>[{"title"=>"Api com Rails", "body"=>"Contruindo uma api usando Ruby on Rails"}]}
+Completed 500 Internal Server Error in 0ms (ActiveRecord: 0.0ms | Allocations: 123)
+
+
+  
+NoMethodError (undefined method `permit' for an instance of Array):
+  
+app/controllers/api/v1/books_controller.rb:49:in `book_params'
+app/controllers/api/v1/books_controller.rb:18:in `create'
+Started POST "/api/v1/books" for ::1 at 2024-04-28 13:23:54 -0300
+Processing by Api::V1::BooksController#create as */*
+  Parameters: {"book"=>{"title"=>"Api com Rails", "body"=>"Contruindo uma api usando Ruby on Rails"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:20:in `create'
+  [1m[36mBook Create (1.7ms)[0m  [1m[32mINSERT INTO "books" ("title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["title", "Api com Rails"], ["body", "Contruindo uma api usando Ruby on Rails"], ["created_at", "2024-04-28 16:23:54.266746"], ["updated_at", "2024-04-28 16:23:54.266746"]]
+  ↳ app/controllers/api/v1/books_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:20:in `create'
+Completed 500 Internal Server Error in 35ms (ActiveRecord: 2.7ms | Allocations: 11941)
+
+
+  
+NoMethodError (undefined method `book_url' for an instance of Api::V1::BooksController):
+  
+app/controllers/api/v1/books_controller.rb:21:in `create'
+Started POST "/api/v1/books" for ::1 at 2024-04-28 13:24:42 -0300
+Processing by Api::V1::BooksController#create as */*
+  Parameters: {"book"=>{"title"=>"Api com Rails", "body"=>"Contruindo uma api usando Ruby on Rails"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:20:in `create'
+  [1m[36mBook Create (1.7ms)[0m  [1m[32mINSERT INTO "books" ("title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["title", "Api com Rails"], ["body", "Contruindo uma api usando Ruby on Rails"], ["created_at", "2024-04-28 16:24:42.267983"], ["updated_at", "2024-04-28 16:24:42.267983"]]
+  ↳ app/controllers/api/v1/books_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:20:in `create'
+Completed 500 Internal Server Error in 11ms (ActiveRecord: 4.9ms | Allocations: 4845)
+
+
+  
+NoMethodError (undefined method `api_v1_book' for an instance of Api::V1::BooksController):
+  
+app/controllers/api/v1/books_controller.rb:21:in `create'
+Started GET "/api/v1/books" for ::1 at 2024-04-28 13:25:31 -0300
+Processing by Api::V1::BooksController#index as */*
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  ↳ app/controllers/api/v1/books_controller.rb:8:in `index'
+Completed 200 OK in 6ms (Views: 5.1ms | ActiveRecord: 0.1ms | Allocations: 942)
+
+
+Started POST "/api/v1/books" for ::1 at 2024-04-28 13:26:04 -0300
+Processing by Api::V1::BooksController#create as */*
+  Parameters: {"book"=>{"title"=>"RSpec com Rails", "body"=>"Contruindo uma api usando RSpec para Testar"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:20:in `create'
+  [1m[36mBook Create (5.3ms)[0m  [1m[32mINSERT INTO "books" ("title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["title", "RSpec com Rails"], ["body", "Contruindo uma api usando RSpec para Testar"], ["created_at", "2024-04-28 16:26:04.054694"], ["updated_at", "2024-04-28 16:26:04.054694"]]
+  ↳ app/controllers/api/v1/books_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:20:in `create'
+Completed 500 Internal Server Error in 21ms (ActiveRecord: 6.0ms | Allocations: 1642)
+
+
+  
+NoMethodError (undefined method `api_v1_book' for an instance of Api::V1::BooksController):
+  
+app/controllers/api/v1/books_controller.rb:21:in `create'
+Started POST "/api/v1/books" for ::1 at 2024-04-28 13:26:54 -0300
+Processing by Api::V1::BooksController#create as */*
+  Parameters: {"book"=>{"title"=>"RSpec com Rails", "body"=>"Contruindo uma api usando RSpec para Testar"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:20:in `create'
+  [1m[36mBook Create (1.4ms)[0m  [1m[32mINSERT INTO "books" ("title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["title", "RSpec com Rails"], ["body", "Contruindo uma api usando RSpec para Testar"], ["created_at", "2024-04-28 16:26:54.693665"], ["updated_at", "2024-04-28 16:26:54.693665"]]
+  ↳ app/controllers/api/v1/books_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:20:in `create'
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 5.2ms | Allocations: 4831)
+
+
+  
+NoMethodError (undefined method `api_v1_book' for an instance of Api::V1::BooksController):
+  
+app/controllers/api/v1/books_controller.rb:21:in `create'
+Started POST "/api/v1/books" for ::1 at 2024-04-28 13:28:32 -0300
+Processing by Api::V1::BooksController#create as */*
+  Parameters: {"book"=>{"title"=>"RSpec com Rails", "body"=>"Contruindo uma api usando RSpec para Testar"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:20:in `create'
+  [1m[36mBook Create (2.0ms)[0m  [1m[32mINSERT INTO "books" ("title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["title", "RSpec com Rails"], ["body", "Contruindo uma api usando RSpec para Testar"], ["created_at", "2024-04-28 16:28:32.936074"], ["updated_at", "2024-04-28 16:28:32.936074"]]
+  ↳ app/controllers/api/v1/books_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:20:in `create'
+Completed 201 Created in 16ms (Views: 0.4ms | ActiveRecord: 4.6ms | Allocations: 5003)
+
+
+Started DELETE "/api/v1/books/1" for ::1 at 2024-04-28 13:28:42 -0300
+Processing by Api::V1::BooksController#destroy as */*
+  Parameters: {"book"=>{"title"=>"RSpec com Rails", "body"=>"Contruindo uma api usando RSpec para Testar"}, "id"=>"1"}
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/books_controller.rb:44:in `set_book'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:38:in `destroy'
+  [1m[36mBook Destroy (1.0ms)[0m  [1m[31mDELETE FROM "books" WHERE "books"."id" = ?[0m  [["id", 1]]
+  ↳ app/controllers/api/v1/books_controller.rb:38:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:38:in `destroy'
+Completed 204 No Content in 11ms (ActiveRecord: 1.4ms | Allocations: 2837)
+
+
+Started DELETE "/api/v1/books/2" for ::1 at 2024-04-28 13:28:46 -0300
+Processing by Api::V1::BooksController#destroy as */*
+  Parameters: {"book"=>{"title"=>"RSpec com Rails", "body"=>"Contruindo uma api usando RSpec para Testar"}, "id"=>"2"}
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/books_controller.rb:44:in `set_book'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:38:in `destroy'
+  [1m[36mBook Destroy (1.7ms)[0m  [1m[31mDELETE FROM "books" WHERE "books"."id" = ?[0m  [["id", 2]]
+  ↳ app/controllers/api/v1/books_controller.rb:38:in `destroy'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:38:in `destroy'
+Completed 204 No Content in 10ms (ActiveRecord: 2.1ms | Allocations: 1597)
+
+
+Started DELETE "/api/v1/books/2" for ::1 at 2024-04-28 13:28:53 -0300
+Processing by Api::V1::BooksController#destroy as */*
+  Parameters: {"book"=>{"title"=>"RSpec com Rails", "body"=>"Contruindo uma api usando RSpec para Testar"}, "id"=>"2"}
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/books_controller.rb:44:in `set_book'
+Completed 404 Not Found in 1ms (ActiveRecord: 0.1ms | Allocations: 452)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Book with 'id'=2):
+  
+app/controllers/api/v1/books_controller.rb:44:in `set_book'
+Started DELETE "/api/v1/books/3" for ::1 at 2024-04-28 13:28:57 -0300
+Processing by Api::V1::BooksController#destroy as */*
+  Parameters: {"book"=>{"title"=>"RSpec com Rails", "body"=>"Contruindo uma api usando RSpec para Testar"}, "id"=>"3"}
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/books_controller.rb:44:in `set_book'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:38:in `destroy'
+  [1m[36mBook Destroy (4.7ms)[0m  [1m[31mDELETE FROM "books" WHERE "books"."id" = ?[0m  [["id", 3]]
+  ↳ app/controllers/api/v1/books_controller.rb:38:in `destroy'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:38:in `destroy'
+Completed 204 No Content in 13ms (ActiveRecord: 5.4ms | Allocations: 1597)
+
+
+Started DELETE "/api/v1/books/4" for ::1 at 2024-04-28 13:29:01 -0300
+Processing by Api::V1::BooksController#destroy as */*
+  Parameters: {"book"=>{"title"=>"RSpec com Rails", "body"=>"Contruindo uma api usando RSpec para Testar"}, "id"=>"4"}
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/books_controller.rb:44:in `set_book'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:38:in `destroy'
+  [1m[36mBook Destroy (2.0ms)[0m  [1m[31mDELETE FROM "books" WHERE "books"."id" = ?[0m  [["id", 4]]
+  ↳ app/controllers/api/v1/books_controller.rb:38:in `destroy'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:38:in `destroy'
+Completed 204 No Content in 7ms (ActiveRecord: 2.6ms | Allocations: 1597)
+
+
+Started GET "/api/v1/books/4" for ::1 at 2024-04-28 13:29:06 -0300
+Processing by Api::V1::BooksController#show as */*
+  Parameters: {"book"=>{"title"=>"RSpec com Rails", "body"=>"Contruindo uma api usando RSpec para Testar"}, "id"=>"4"}
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/books_controller.rb:44:in `set_book'
+Completed 404 Not Found in 2ms (ActiveRecord: 0.2ms | Allocations: 434)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Book with 'id'=4):
+  
+app/controllers/api/v1/books_controller.rb:44:in `set_book'
+Started GET "/api/v1/books/" for ::1 at 2024-04-28 13:29:10 -0300
+Processing by Api::V1::BooksController#index as */*
+  Parameters: {"book"=>{"title"=>"RSpec com Rails", "body"=>"Contruindo uma api usando RSpec para Testar"}}
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  ↳ app/controllers/api/v1/books_controller.rb:8:in `index'
+Completed 200 OK in 6ms (Views: 2.3ms | ActiveRecord: 0.2ms | Allocations: 687)
+
+
+Started PUT "/api/v1/books/5" for ::1 at 2024-04-28 13:29:31 -0300
+Processing by Api::V1::BooksController#update as */*
+  Parameters: {"book"=>{"title"=>"RSpec e Rails", "body"=>"Contruindo uma api usando RSpec para Testar"}, "id"=>"5"}
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/books_controller.rb:44:in `set_book'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:29:in `update'
+  [1m[36mBook Update (1.1ms)[0m  [1m[33mUPDATE "books" SET "title" = ?, "updated_at" = ? WHERE "books"."id" = ?[0m  [["title", "RSpec e Rails"], ["updated_at", "2024-04-28 16:29:31.335753"], ["id", 5]]
+  ↳ app/controllers/api/v1/books_controller.rb:29:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:29:in `update'
+Completed 200 OK in 6ms (Views: 0.3ms | ActiveRecord: 1.4ms | Allocations: 2205)
+
+
+Started GET "/api/v1/books/5" for ::1 at 2024-04-28 13:29:37 -0300
+Processing by Api::V1::BooksController#show as */*
+  Parameters: {"book"=>{"title"=>"RSpec e Rails", "body"=>"Contruindo uma api usando RSpec para Testar"}, "id"=>"5"}
+  [1m[36mBook Load (0.3ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/books_controller.rb:44:in `set_book'
+Completed 200 OK in 5ms (Views: 0.4ms | ActiveRecord: 0.1ms | Allocations: 474)
+
+
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateAuthors (20240428163020)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "authors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240428163020') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddAuthorToBooks (20240428163056)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TEMPORARY TABLE "abooks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar DEFAULT NULL, "body" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "abooks" ("id","title","body","created_at","updated_at")
+                     SELECT "id","title","body","created_at","updated_at" FROM "books"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "books"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar DEFAULT NULL, "body" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "author_id" integer NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[32mINSERT INTO "books" ("id","title","body","created_at","updated_at")
+                     SELECT "id","title","body","created_at","updated_at" FROM "abooks"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddAuthorToBooks (20240428163056)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "abooks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar DEFAULT NULL, "body" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "abooks" ("id","title","body","created_at","updated_at")
+                     SELECT "id","title","body","created_at","updated_at" FROM "books"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "books"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar DEFAULT NULL, "body" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "author_id" integer NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[32mINSERT INTO "books" ("id","title","body","created_at","updated_at")
+                     SELECT "id","title","body","created_at","updated_at" FROM "abooks"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2024-04-28 16:33:27.066833', '2024-04-28 16:33:27.066841') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateBooks (20240428161437)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "body" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240428161437') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateAuthors (20240428163020)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "authors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240428163020') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddAuthorToBooks (20240428163056)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TEMPORARY TABLE "abooks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar DEFAULT NULL, "body" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "abooks" ("id","title","body","created_at","updated_at")
+                     SELECT "id","title","body","created_at","updated_at" FROM "books"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "books"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar DEFAULT NULL, "body" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "author_id" integer NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "books" ("id","title","body","created_at","updated_at")
+                     SELECT "id","title","body","created_at","updated_at" FROM "abooks"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "abooks"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_books_on_author_id" ON "books" ("author_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "abooks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar DEFAULT NULL, "body" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "author_id" integer NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_abooks_on_author_id" ON "abooks" ("author_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "abooks" ("id","title","body","created_at","updated_at","author_id")
+                     SELECT "id","title","body","created_at","updated_at","author_id" FROM "books"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "books"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar DEFAULT NULL, "body" text DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "author_id" integer NOT NULL, CONSTRAINT "fk_rails_53d51ce16a"
+FOREIGN KEY ("author_id")
+  REFERENCES "authors" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_books_on_author_id" ON "books" ("author_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "books" ("id","title","body","created_at","updated_at","author_id")
+                     SELECT "id","title","body","created_at","updated_at","author_id" FROM "abooks"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "abooks"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240428163056') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/api/v1/authors" for ::1 at 2024-04-28 16:40:33 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::AuthorsController#create as */*
+  Parameters: {"author"=>{"name"=>"Manoel Carlos"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/authors_controller.rb:20:in `create'
+  [1m[36mAuthor Create (1.2ms)[0m  [1m[32mINSERT INTO "authors" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "Manoel Carlos"], ["created_at", "2024-04-28 19:40:33.322688"], ["updated_at", "2024-04-28 19:40:33.322688"]]
+  ↳ app/controllers/api/v1/authors_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/authors_controller.rb:20:in `create'
+Completed 201 Created in 36ms (Views: 0.4ms | ActiveRecord: 5.2ms | Allocations: 12535)
+
+
+Started POST "/api/v1/authors" for ::1 at 2024-04-28 16:40:52 -0300
+Processing by Api::V1::AuthorsController#create as */*
+  Parameters: {"author"=>{"name"=>"João Emanuel Cordeiro"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/authors_controller.rb:20:in `create'
+  [1m[36mAuthor Create (1.6ms)[0m  [1m[32mINSERT INTO "authors" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "João Emanuel Cordeiro"], ["created_at", "2024-04-28 19:40:52.059971"], ["updated_at", "2024-04-28 19:40:52.059971"]]
+  ↳ app/controllers/api/v1/authors_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/authors_controller.rb:20:in `create'
+Completed 201 Created in 5ms (Views: 0.2ms | ActiveRecord: 1.8ms | Allocations: 1715)
+
+
+Started GET "/api/v1/authors" for ::1 at 2024-04-28 16:41:00 -0300
+Processing by Api::V1::AuthorsController#index as */*
+  Parameters: {"author"=>{"name"=>"João Emanuel Cordeiro"}}
+  [1m[36mAuthor Load (0.2ms)[0m  [1m[34mSELECT "authors".* FROM "authors"[0m
+  ↳ app/controllers/api/v1/authors_controller.rb:8:in `index'
+Completed 200 OK in 7ms (Views: 1.7ms | ActiveRecord: 0.2ms | Allocations: 1958)
+
+
+Started PUT "/api/v1/authors/2" for ::1 at 2024-04-28 16:41:21 -0300
+Processing by Api::V1::AuthorsController#update as */*
+  Parameters: {"author"=>{"name"=>"João Emanuel Cordeiro Jr"}, "id"=>"2"}
+  [1m[36mAuthor Load (0.1ms)[0m  [1m[34mSELECT "authors".* FROM "authors" WHERE "authors"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/authors_controller.rb:44:in `set_author'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/authors_controller.rb:29:in `update'
+  [1m[36mAuthor Update (1.0ms)[0m  [1m[33mUPDATE "authors" SET "name" = ?, "updated_at" = ? WHERE "authors"."id" = ?[0m  [["name", "João Emanuel Cordeiro Jr"], ["updated_at", "2024-04-28 19:41:21.249509"], ["id", 2]]
+  ↳ app/controllers/api/v1/authors_controller.rb:29:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/authors_controller.rb:29:in `update'
+Completed 200 OK in 12ms (Views: 0.2ms | ActiveRecord: 1.3ms | Allocations: 3780)
+
+
+Started GET "/api/v1/authors/" for ::1 at 2024-04-28 16:41:28 -0300
+Processing by Api::V1::AuthorsController#index as */*
+  Parameters: {"author"=>{"name"=>"João Emanuel Cordeiro Jr"}}
+  [1m[36mAuthor Load (0.1ms)[0m  [1m[34mSELECT "authors".* FROM "authors"[0m
+  ↳ app/controllers/api/v1/authors_controller.rb:8:in `index'
+Completed 200 OK in 2ms (Views: 1.8ms | ActiveRecord: 0.1ms | Allocations: 691)
+
+
+Started POST "/api/v1/books/" for ::1 at 2024-04-28 16:42:26 -0300
+Processing by Api::V1::BooksController#create as */*
+  Parameters: {"book"=>{"title"=>"RSpec com Rails", "body"=>"Contruindo uma api usando RSpec para Testar"}, "author_id"=>1}
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:21:in `create'
+  [1m[36mAuthor Load (2.6ms)[0m  [1m[34mSELECT "authors".* FROM "authors" WHERE "authors"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/books_controller.rb:21:in `create'
+  [1m[36mBook Create (0.3ms)[0m  [1m[32mINSERT INTO "books" ("title", "body", "created_at", "updated_at", "author_id") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "RSpec com Rails"], ["body", "Contruindo uma api usando RSpec para Testar"], ["created_at", "2024-04-28 19:42:26.293266"], ["updated_at", "2024-04-28 19:42:26.293266"], ["author_id", 1]]
+  ↳ app/controllers/api/v1/books_controller.rb:21:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/books_controller.rb:21:in `create'
+Completed 201 Created in 67ms (Views: 0.3ms | ActiveRecord: 3.9ms | Allocations: 11600)
+
+
+Started GET "/api/v1/books/3" for ::1 at 2024-04-28 17:24:45 -0300
+Processing by Api::V1::BooksController#show as */*
+  Parameters: {"book"=>{"title"=>"RSpec com Rails", "body"=>"Contruindo uma api usando RSpec para Testar"}, "author_id"=>1, "id"=>"3"}
+  [1m[36mBook Load (1.5ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/books_controller.rb:45:in `set_book'
+Completed 404 Not Found in 4ms (ActiveRecord: 2.3ms | Allocations: 1308)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Book with 'id'=3):
+  
+app/controllers/api/v1/books_controller.rb:45:in `set_book'
+Started GET "/api/v1/books/3" for ::1 at 2024-04-28 17:25:15 -0300
+Processing by Api::V1::BooksController#show as */*
+  Parameters: {"book"=>{"title"=>"RSpec com Rails", "body"=>"Contruindo uma api usando RSpec para Testar"}, "author_id"=>1, "id"=>"3"}
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/books_controller.rb:45:in `set_book'
+Filter chain halted as :set_book rendered or redirected
+Completed 404 Not Found in 4ms (Views: 0.1ms | ActiveRecord: 2.1ms | Allocations: 1604)
+
+
+Started GET "/api/v1/books/3" for ::1 at 2024-04-28 17:25:38 -0300
+Processing by Api::V1::BooksController#show as */*
+  Parameters: {"book"=>{"title"=>"RSpec com Rails", "body"=>"Contruindo uma api usando RSpec para Testar"}, "author_id"=>1, "id"=>"3"}
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/books_controller.rb:45:in `set_book'
+Filter chain halted as :set_book rendered or redirected
+Completed 404 Not Found in 4ms (Views: 0.2ms | ActiveRecord: 2.0ms | Allocations: 1586)
+
+
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20240428202803)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime(6), "remember_created_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240428202803') RETURNING "version"[0m
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/users/" for ::1 at 2024-04-28 17:29:30 -0300
+  
+NoMethodError (undefined method `devise_for' for an instance of ActionDispatch::Routing::Mapper):
+  
+config/routes.rb:2:in `block in <main>'
+config/routes.rb:1:in `<main>'
+Started POST "/users/" for ::1 at 2024-04-28 17:30:29 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (No route matches [POST] "/users"):
+  
+Started POST "/users/" for ::1 at 2024-04-28 17:31:41 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Devise::RegistrationsController#create as */*
+Completed 422 Unprocessable Entity in 457ms (Views: 1.2ms | ActiveRecord: 3.7ms | Allocations: 17107)
+
+
+Started GET "/users/" for ::1 at 2024-04-28 17:31:50 -0300
+  
+ActionController::RoutingError (No route matches [GET] "/users"):
+  
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+Started GET "/users/" for ::1 at 2024-04-28 17:32:20 -0300
+  
+ActionController::RoutingError (No route matches [GET] "/users"):
+  
+Started POST "/users/" for ::1 at 2024-04-28 17:32:27 -0300
+Processing by Devise::RegistrationsController#create as */*
+Completed 422 Unprocessable Entity in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 367)
+
+
+Started POST "/users/" for ::1 at 2024-04-28 17:32:57 -0300
+Processing by Devise::RegistrationsController#create as */*
+Completed 422 Unprocessable Entity in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 373)
+
+
+Started POST "/users/" for ::1 at 2024-04-28 17:33:38 -0300
+Processing by Devise::RegistrationsController#create as */*
+Completed 422 Unprocessable Entity in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 373)
+
+
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+Started POST "/login/" for ::1 at 2024-04-28 17:46:13 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AuthenticationController#login as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/authentication_controller.rb:3:in `login'
+Completed 401 Unauthorized in 21ms (Views: 0.2ms | ActiveRecord: 2.3ms | Allocations: 6085)
+
+
+Started POST "/users/" for ::1 at 2024-04-28 17:48:24 -0300
+Processing by Devise::RegistrationsController#create as */*
+Completed 422 Unprocessable Entity in 26ms (Views: 0.1ms | ActiveRecord: 0.3ms | Allocations: 12553)
+
+
+Started POST "/users/" for ::1 at 2024-04-28 17:49:53 -0300
+Processing by Devise::RegistrationsController#create as */*
+Completed 422 Unprocessable Entity in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 374)
+
+
+Started POST "/users/" for ::1 at 2024-04-28 17:52:56 -0300
+Processing by Devise::RegistrationsController#create as */*
+  Parameters: {"user"=>{"email"=>"admin@mail.com", "password"=>"[FILTERED]"}, "registration"=>{"user"=>{"email"=>"admin@mail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin@mail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["email", "admin@mail.com"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2024-04-28 20:52:57.227155"], ["updated_at", "2024-04-28 20:52:57.227155"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+Completed 500 Internal Server Error in 343ms (ActiveRecord: 2.1ms | Allocations: 7147)
+
+
+  
+ActionDispatch::Request::Session::DisabledSessionError (Your application has sessions disabled. To write to the session you must first configure a session store):
+  
+actionpack (7.1.3.2) lib/action_dispatch/request/session.rb:260:in `load_for_write!'
+actionpack (7.1.3.2) lib/action_dispatch/request/session.rb:153:in `[]='
+warden (1.2.9) lib/warden/session_serializer.rb:27:in `store'
+warden (1.2.9) lib/warden/proxy.rb:187:in `set_user'
+devise (4.9.4) lib/devise/controllers/sign_in_out.rb:53:in `sign_in'
+devise (4.9.4) app/controllers/devise/registrations_controller.rb:106:in `sign_up'
+devise (4.9.4) app/controllers/devise/registrations_controller.rb:24:in `create'
+actionpack (7.1.3.2) lib/action_controller/metal/basic_implicit_render.rb:6:in `send_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:224:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rendering.rb:165:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:259:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:110:in `run_callbacks'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:258:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rescue.rb:25:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:74:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.1.3.2) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:73:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/params_wrapper.rb:261:in `process_action'
+activerecord (7.1.3.2) lib/active_record/railties/controller_runtime.rb:32:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:160:in `process'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:21:in `block in <class:Constraints>'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:51:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (3.0.10) lib/rack/etag.rb:29:in `call'
+rack (3.0.10) lib/rack/conditional_get.rb:43:in `call'
+rack (3.0.10) lib/rack/head.rb:15:in `call'
+activerecord (7.1.3.2) lib/active_record/migration.rb:655:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:135:in `block in tagged'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:135:in `tagged'
+activesupport (7.1.3.2) lib/active_support/broadcast_logger.rb:240:in `method_missing'
+railties (7.1.3.2) lib/rails/rack/logger.rb:24:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.10) lib/rack/runtime.rb:24:in `call'
+activesupport (7.1.3.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.10) lib/rack/sendfile.rb:114:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+rack-cors (2.0.2) lib/rack/cors.rb:102:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+Started POST "/users" for ::1 at 2024-04-28 17:54:41 -0300
+Processing by Devise::RegistrationsController#create as */*
+  Parameters: {"user"=>{"email"=>"admin@mail.com", "password"=>"[FILTERED]"}, "registration"=>{"user"=>{"email"=>"admin@mail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin@mail.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 422 Unprocessable Entity in 308ms (Views: 0.1ms | ActiveRecord: 1.7ms | Allocations: 3273)
+
+
+Started POST "/users" for ::1 at 2024-04-28 17:56:31 -0300
+Processing by Devise::RegistrationsController#create as */*
+  Parameters: {"user"=>{"email"=>"admin@mail.com", "password"=>"[FILTERED]"}, "registration"=>{"user"=>{"email"=>"admin@mail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin@mail.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+Completed 422 Unprocessable Entity in 310ms (Views: 0.1ms | ActiveRecord: 1.5ms | Allocations: 3243)
+
+
+Started POST "/users" for ::1 at 2024-04-28 17:58:14 -0300
+Processing by Devise::RegistrationsController#create as */*
+  Parameters: {"user"=>{"email"=>"admin@mail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "registration"=>{"user"=>{"email"=>"admin@mail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (2.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin@mail.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 422 Unprocessable Entity in 327ms (Views: 0.1ms | ActiveRecord: 2.8ms | Allocations: 3250)
+
+
+Started POST "/users" for ::1 at 2024-04-28 17:58:44 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Devise::RegistrationsController#create as */*
+  Parameters: {"user"=>{"email"=>"admin@mail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "registration"=>{"user"=>{"email"=>"admin@mail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (2.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin@mail.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 422 Unprocessable Entity in 357ms (Views: 0.2ms | ActiveRecord: 5.2ms | Allocations: 21570)
+
+
+Started POST "/users" for ::1 at 2024-04-28 18:07:38 -0300
+Processing by Devise::RegistrationsController#create as */*
+  Parameters: {"user"=>{"email"=>"exemplo@email.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "registration"=>{"user"=>{"email"=>"exemplo@email.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (4.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "exemplo@email.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["email", "exemplo@email.com"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2024-04-28 21:07:38.791629"], ["updated_at", "2024-04-28 21:07:38.791629"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+Completed 500 Internal Server Error in 323ms (ActiveRecord: 5.8ms | Allocations: 5070)
+
+
+  
+ActionDispatch::Request::Session::DisabledSessionError (Your application has sessions disabled. To write to the session you must first configure a session store):
+  
+actionpack (7.1.3.2) lib/action_dispatch/request/session.rb:260:in `load_for_write!'
+actionpack (7.1.3.2) lib/action_dispatch/request/session.rb:153:in `[]='
+warden (1.2.9) lib/warden/session_serializer.rb:27:in `store'
+warden (1.2.9) lib/warden/proxy.rb:187:in `set_user'
+devise (4.9.4) lib/devise/controllers/sign_in_out.rb:53:in `sign_in'
+devise (4.9.4) app/controllers/devise/registrations_controller.rb:106:in `sign_up'
+devise (4.9.4) app/controllers/devise/registrations_controller.rb:24:in `create'
+actionpack (7.1.3.2) lib/action_controller/metal/basic_implicit_render.rb:6:in `send_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:224:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rendering.rb:165:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:259:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:110:in `run_callbacks'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:258:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rescue.rb:25:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:74:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.1.3.2) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:73:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/params_wrapper.rb:261:in `process_action'
+activerecord (7.1.3.2) lib/active_record/railties/controller_runtime.rb:32:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:160:in `process'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:21:in `block in <class:Constraints>'
+actionpack (7.1.3.2) lib/action_dispatch/routing/mapper.rb:51:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (3.0.10) lib/rack/etag.rb:29:in `call'
+rack (3.0.10) lib/rack/conditional_get.rb:43:in `call'
+rack (3.0.10) lib/rack/head.rb:15:in `call'
+activerecord (7.1.3.2) lib/active_record/migration.rb:655:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:135:in `block in tagged'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:135:in `tagged'
+activesupport (7.1.3.2) lib/active_support/broadcast_logger.rb:240:in `method_missing'
+railties (7.1.3.2) lib/rails/rack/logger.rb:24:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.10) lib/rack/runtime.rb:24:in `call'
+activesupport (7.1.3.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.10) lib/rack/sendfile.rb:114:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+rack-cors (2.0.2) lib/rack/cors.rb:102:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+Started POST "/users" for ::1 at 2024-04-28 18:08:12 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Devise::RegistrationsController#create as */*
+  Parameters: {"user"=>{"email"=>"exemplo@email.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "registration"=>{"user"=>{"email"=>"exemplo@email.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (7.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "exemplo@email.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 422 Unprocessable Entity in 407ms (Views: 0.2ms | ActiveRecord: 11.1ms | Allocations: 21564)
+
+
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+Started POST "/login/" for ::1 at 2024-04-28 18:09:08 -0300
+Processing by AuthenticationController#login as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/authentication_controller.rb:3:in `login'
+Completed 401 Unauthorized in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms | Allocations: 809)
+
+
+Started POST "/login/" for ::1 at 2024-04-28 18:09:22 -0300
+Error occurred while parsing request parameters.
+Contents:
+
+{
+    'email': 'admin@mail.com',
+    'password': '123456'
+}
+Processing by AuthenticationController#login as */*
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms | Allocations: 142)
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters):
+  
+app/controllers/authentication_controller.rb:3:in `login'
+Started POST "/login/" for ::1 at 2024-04-28 18:09:49 -0300
+Processing by AuthenticationController#login as */*
+  Parameters: {"email"=>"admin@mail.com", "password"=>"[FILTERED]", "authentication"=>{"email"=>"admin@mail.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin@mail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/authentication_controller.rb:3:in `login'
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from encode at /home/isaac/Documentos/projetos/onebitcode/ruby/rails/8-api/storebook/app/services/json_web_token_service.rb:5)
+Completed 200 OK in 314ms (Views: 0.3ms | ActiveRecord: 0.2ms | Allocations: 2049)
+
+
